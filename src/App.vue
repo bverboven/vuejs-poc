@@ -1,32 +1,23 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
+  <div id="app" class="container">
+    <h1>
+      <router-link to="/">
+        <img alt="Vue logo" src="./assets/logo.png" class="vue-logo" />
+        Proof of Concept
+      </router-link>
+    </h1>
+
     <router-view />
   </div>
 </template>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  padding-top: 1rem;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.vue-logo {
+  height: 2rem;
+  float: left;
+  margin-right: 0.5rem;
 }
 </style>

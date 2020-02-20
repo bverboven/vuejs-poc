@@ -1,18 +1,15 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <ul>
+      <li>
+        <router-link :to="{ name: 'Autocomplete' }">Autocomplete</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'SortableList' }">Sortable list</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'Carousel' }">Carousel</router-link>
+      </li>
+    </ul>
   </div>
 </template>
-
-<script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
-export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  }
-};
-</script>

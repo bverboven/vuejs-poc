@@ -11,13 +11,19 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+    name: "Autocomplete",
+    path: "/autocomplete",
+    component: () => import("@/poc/autocomplete/Home")
+  },
+  {
+    name: "SortableList",
+    path: "/sortable-list",
+    component: () => import("@/poc/sortable-list/Home")
+  },
+  {
+    name: "Carousel",
+    path: "/carousel",
+    component: () => import("@/poc/carousel/Home")
   }
 ];
 
