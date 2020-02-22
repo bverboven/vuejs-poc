@@ -1,39 +1,39 @@
 <template>
   <div>
-    <h2>Autocomplete (countries)</h2>
-    <label for="qCountry">Search</label>
-    <Autocomplete
-      input-id="qCountry"
-      v-model="selectedCountry"
-      :search="searchCountries"
-      :resultSelector="x => (x ? x.title + ' (' + x.code + ')' : '')"
-      :valueSelector="x => (x ? x.title : '')"
-      :debounceTime="250"
-      @input="onChangeCountry"
-      ref="countrySelector"
-    >
-      <template v-slot:prepend>
-        <span class="input-group-text">
-          Search
-        </span>
-      </template>
-      <template v-slot:append>
+    <h2>Autocomplete (fruit)</h2>
+    <div class="row">
+      <label for="qFruit" class="col-3">Search</label>
+      <div class="col-9">
+        <Autocomplete
+          input-id="qFruit"
+          v-model="selectedCountry"
+          :maxResults="5"
+          :search="searchCountries"
+          :resultSelector="x => (x ? x.title + ' (' + x.code + ')' : '')"
+          :valueSelector="x => (x ? x.title : '')"
+          :debounceTime="250"
+          ref="countrySelector"
+        />
         <button
           type="button"
-          class="btn btn-outline-secondary bg-light"
-          @click="reset"
+          @click="$refs.countrySelector.reset()"
+          v-show="selectedCountry"
         >
-          X
+          Reset
         </button>
-      </template>
-    </Autocomplete>
-    <label class="mr-2">Selected:</label>
-    <span>{{ selectedCountryTitle || "nothing yet" }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-3">Selected: </label>
+      <div class="col-9">
+        {{ selectedCountryTitle || "nothing yet" }}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Autocomplete from "../components/AutocompleteWithBootstrap";
+import Autocomplete from "../components/AutocompleteWithDatalist";
 import countries from "../data/countries.js";
 
 const getCountries = async () => countries;
@@ -75,6 +75,7 @@ export default {
     this.getCountries = getCountries;
   },
   async mounted() {
+    console.debug("Created DataList", { cmp: this });
     const country = (await this.getCountries()).find(
       c => this.countryCode && c.code === this.countryCode.toUpperCase()
     );

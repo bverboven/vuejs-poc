@@ -38,6 +38,15 @@
           Bootstrap (BBV)
         </router-link>
       </li>
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'datalistAutocomplete' }"
+          class="nav-link"
+          active-class="active"
+        >
+          DataList
+        </router-link>
+      </li>
     </ul>
 
     <div class="list-group" v-if="$route.name == 'autocomplete'">
@@ -77,6 +86,13 @@
           DRC
         </router-link>
       </div>
+      <router-link
+        :to="{ name: 'datalistAutocomplete' }"
+        active-class="active"
+        class="list-group-item"
+      >
+        Datalist
+      </router-link>
     </div>
 
     <article>

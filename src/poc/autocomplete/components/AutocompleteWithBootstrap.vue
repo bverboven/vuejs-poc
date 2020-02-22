@@ -50,14 +50,22 @@
 </template>
 
 <script>
-import Autocomplete from "./AutocompleteFromBbv";
+import "./autocomplete.scss";
+import autocompleteMixin from "./autocomplete-mixin";
 
 export default {
-  ...Autocomplete,
+  mixins: [autocompleteMixin],
   props: {
-    ...Autocomplete.props,
-    containerClass: { type: String, required: false, default: "form-group" },
-    inputClass: { type: String, required: false, default: "form-control" }
+    containerClass: {
+      type: String,
+      required: false,
+      default: "form-group"
+    },
+    inputClass: {
+      type: String,
+      required: false,
+      default: "form-control"
+    }
   }
 };
 </script>
