@@ -1,59 +1,51 @@
 <template>
-  <form>
-    <div class="autocomplete-container">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <slot name="prepend"></slot>
-        </div>
-        <input
-          autocomplete="off"
-          type="text"
-          :id="inputId"
-          ref="inputEl"
-          :class="inputClass"
-          v-model="q"
-          @input="
-            clearSelection();
-            onSearch();
-          "
-          @focus="selectedItem || onSearch()"
-          @blur="closeGently"
-          @change="
-            checkMatch();
-            $emit('change', selectedItem);
-          "
-          @keydown.down="moveSelection(1)"
-          @keydown.up="moveSelection(-1)"
-          @keydown.enter.prevent="handleSelect(selectedItem, selectedIndex)"
-        />
-        <div
-          class="autocomplete-items"
-          :style="{ visibility: isOpen ? 'visible' : 'hidden' }"
+  <div
+    class="autocomplete-container"
+    :style="{ display: inline ? 'inline-block' : 'block' }"
+  >
+    <input
+      autocomplete="off"
+      type="text"
+      :id="inputId"
+      :class="inputClass"
+      v-model="q"
+      @input="
+        clearSelection();
+        onSearch();
+      "
+      @focus="selectedItem || onSearch()"
+      @blur="closeGently"
+      @change="
+        checkMatch();
+        $emit('change', selectedItem);
+      "
+      @keydown.down="moveSelection(1)"
+      @keydown.up="moveSelection(-1)"
+      @keydown.enter.prevent="handleSelect(selectedItem, selectedIndex)"
+      ref="inputEl"
+    />
+    <div
+      class="autocomplete-items"
+      :class="resultClass"
+      :style="{ visibility: isOpen ? 'visible' : 'hidden' }"
+    >
+      <ul :class="itemsClass">
+        <li
+          v-for="(item, i) in items"
+          :key="i"
+          @click="handleSelect(item, i)"
+          class="autocomplete-item"
+          :class="[itemClass, { selected: item == selectedItem }]"
         >
-          <ul>
-            <li
-              v-for="(item, i) in items"
-              :key="i"
-              @click="handleSelect(item, i)"
-              class="autocomplete-item"
-              :class="{ selected: item == selectedItem }"
-            >
-              {{ label(item) }}
-            </li>
-          </ul>
-        </div>
-        <div class="input-group-append">
-          <slot name="append">
-            <span class="input-group-text">Append</span>
-          </slot>
-        </div>
-      </div>
+          {{ label(item) }}
+        </li>
+      </ul>
     </div>
-  </form>
+  </div>
 </template>
 
 <script>
-import { debounce } from "lodash";
+import debounceToPromise from "@/utils/debounce-to-promise";
 
 export default {
   props: {
@@ -68,8 +60,14 @@ export default {
       }
     },
     inputId: String,
-    inputClass: { type: String, required: false, default: "form-control" },
-    maxResults: { type: Number, required: false, default: 10 }
+    inline: { type: Boolean, required: false, default: false },
+    containerClass: { type: String, required: false, default: "" },
+    inputClass: { type: String, required: false, default: "" },
+    resultClass: { type: String, required: false, default: "" },
+    itemsClass: { type: String, required: false, default: "" },
+    itemClass: { type: String, required: false, default: "" },
+    maxResults: { type: Number, required: false, default: 10 },
+    debounceTime: { type: Number, required: false, defaults: 100 }
   },
   data() {
     return {
@@ -86,14 +84,16 @@ export default {
     }
   },
   methods: {
-    onSearch: debounce(async function() {
+    async onSearch() {
       this.isOpen = true;
-      this.items = await this.search(this.q || "").slice(0, this.maxResults);
+      this.items = await this.debouncedSearch(this.q || "").then(items =>
+        items.slice(0, this.maxResults)
+      );
       this.selectedIndex = this.items.indexOf(this.selectedItem);
-    }, 250),
-    closeGently: debounce(function() {
-      this.isOpen = false;
-    }, 250),
+    },
+    closeGently: function() {
+      setTimeout(() => (this.isOpen = false), 250);
+    },
     checkMatch() {
       // check (and set selection automatically) if the input value corresponds with a value in the results
       if (this.selectedItem == null) {
@@ -112,6 +112,13 @@ export default {
       this.setSelection(item, item ? index : -1);
     },
     setSelection(item, index) {
+      if (
+        item === this.selectedItem ||
+        this.valueSelector(item) === this.valueSelector(this.selectedItem)
+      ) {
+        return;
+      }
+
       if (item && (index == null || index < 0)) {
         index = this.items.indexOf(item);
       } else if (!item && index >= 0) {
@@ -119,6 +126,7 @@ export default {
       }
       this.selectedItem = item;
       this.selectedIndex = index;
+      // set q to the corresponding value for the resulting item
       this.q = this.valueSelector(item);
       this.$emit("input", item);
     },
@@ -130,11 +138,22 @@ export default {
       }
     },
     clearSelection() {
-      console.debug("ClearSelection");
       this.selectedIndex = -1;
       this.selectedItem = null;
       this.$emit("input", null);
+    },
+    reset() {
+      this.clearSelection();
+      this.q = "";
     }
+  },
+  watch: {
+    value(newVal) {
+      this.setSelection(newVal);
+    }
+  },
+  created() {
+    this.debouncedSearch = debounceToPromise(this.search, this.debounceTime);
   },
   mounted() {
     if (this.value != null) {

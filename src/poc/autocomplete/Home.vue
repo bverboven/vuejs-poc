@@ -1,95 +1,86 @@
 <template>
-  <div>
-    <h2>
-      <a href="https://autocomplete.trevoreyre.com/" target="_blank">
-        Autocomplete (Trevoreyre)
-      </a>
-    </h2>
-    <Autocomplete1 />
-    <h2>
-      <a
-        href="https://alligator.io/vuejs/vue-autocomplete-component/"
-        target="_blank"
+  <section>
+    <ul class="nav nav-pills mb-3">
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'autocomplete' }"
+          class="nav-link"
+          active-class="active"
+          exact
+        >
+          Home
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'trevoreyreAutocomplete' }"
+          class="nav-link"
+          active-class="active"
+        >
+          Trevoreyre
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'basicAutocomplete' }"
+          class="nav-link"
+          active-class="active"
+        >
+          Basic (BBV)
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'bootstrapAutocomplete' }"
+          class="nav-link"
+          active-class="active"
+        >
+          Bootstrap (BBV)
+        </router-link>
+      </li>
+    </ul>
+
+    <div class="list-group" v-if="$route.name == 'autocomplete'">
+      <router-link
+        :to="{ name: 'trevoreyreAutocomplete' }"
+        active-class="active"
+        class="list-group-item"
       >
-        Autocomplete (BV)
-      </a>
-    </h2>
-    <label for="qFruit">Search</label>
-    <Autocomplete2
-      input-id="qFruit"
-      v-model="selectedFruit"
-      :maxResults="5"
-      :search="searchFruit"
-    >
-      <template v-slot:prepend>
-        <span class="input-group-text">
-          <span>{{ selectedFruit || "nothing yet" }}</span>
-        </span>
-      </template>
-    </Autocomplete2>
-    <h2>Autocomplete (BV)</h2>
-    <label for="qCountry">Search</label>
-    <Autocomplete2
-      input-id="qCountry"
-      v-model="selectedCountry"
-      :search="searchCountries"
-      :resultSelector="x => (x ? x.title + ' (' + x.code + ')' : '')"
-      :valueSelector="x => (x ? x.title : '')"
-      @input="onChangeCountry"
-      ref="countrySelector"
-    />
-    <label>Selected:</label>
-    <span>{{ selectedCountryTitle }}</span>
-  </div>
+        Trevoreyre
+      </router-link>
+      <router-link
+        :to="{ name: 'basicAutocomplete' }"
+        active-class="active"
+        class="list-group-item"
+      >
+        Basic (BBV)
+      </router-link>
+      <div class="list-group-item">
+        <router-link
+          :to="{ name: 'bootstrapAutocomplete' }"
+          active-class="active"
+        >
+          Bootstrap (BBV)
+        </router-link>
+        |
+        <router-link
+          :to="{ name: 'bootstrapAutocomplete', params: { countryCode: 'BE' } }"
+          active-class="active"
+        >
+          Belgium
+        </router-link>
+        |
+        <router-link
+          :to="{ name: 'bootstrapAutocomplete', params: { countryCode: 'CD' } }"
+          active-class="active"
+        >
+          DRC
+        </router-link>
+      </div>
+    </div>
+
+    <article>
+      <router-view></router-view>
+    </article>
+  </section>
 </template>
-
-<script>
-import Autocomplete1 from "./Autocomplete-trevoreyre.vue";
-import Autocomplete2 from "./Autocomplete-bv";
-
-import countries from "./data/countries.js";
-const fruits =
-  "Apple,Banana,Orange,Mango,Pear,Peach," +
-  "Grape,Tangerine,Pineapple".split(",");
-
-export default {
-  components: {
-    Autocomplete1,
-    Autocomplete2
-  },
-  data() {
-    return {
-      selectedCountry: null,
-      selectedFruit: null,
-      countries: [],
-      fruit: []
-    };
-  },
-  computed: {
-    selectedCountryTitle() {
-      return this.selectedCountry ? this.selectedCountry.title : "no selection";
-    }
-  },
-  methods: {
-    searchCountries(input) {
-      console.debug("Search", input);
-      return this.countries.filter(
-        c => c.title.toLowerCase().indexOf(input.toLowerCase()) === 0
-      );
-    },
-    searchFruit(input) {
-      console.debug("Search", input);
-      return this.fruit.filter(
-        x => x.toLowerCase().indexOf(input.toLowerCase()) === 0
-      );
-    },
-    onChangeCountry(item) {
-      this.selectedCountry = item;
-    }
-  },
-  created() {
-    this.countries = countries;
-    this.fruit = fruits;
-  }
-};
-</script>
