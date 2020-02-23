@@ -1,14 +1,16 @@
 <template>
   <section>
-    <h2>Carousel</h2>
-    <Carousel :slides="slides" :interval="interval" @change="changeSlide" />
+    <div class="row">
+      <div class="col-md-8">
+        <Carousel :slides="slides" :interval="interval" @change="changeSlide" />
+      </div>
+    </div>
   </section>
 </template>
 
 <script>
 // swiper css
 import "swiper/dist/css/swiper.css";
-
 // swiper component
 import Carousel from "./Carousel.vue";
 
@@ -48,9 +50,6 @@ export default {
 </script>
 
 <style lang="scss">
-section {
-  width: 1024px;
-}
 .carousel-container {
   .img-wrapper {
     img {
