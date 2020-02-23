@@ -28,7 +28,10 @@
       <div class="col-2"><strong>&lt; - &gt;</strong></div>
       <div class="col-4">
         <h3>List 2</h3>
-        <div @mouseover="list2Hovering = true" @mouseout="list2Hovering = false">
+        <div
+          @mouseover="list2Hovering = true"
+          @mouseout="list2Hovering = false"
+        >
           <draggable
             class="list-group"
             :class="{ empty: list2.length <= 1 }"
@@ -60,13 +63,7 @@ export default {
   },
   methods: {
     log: function(listId, evt) {
-      console.log(listId, { evt });
-    },
-    onEnter(e) {
-      console.debug("enter", { evt: e });
-    },
-    onLeave(e) {
-      console.debug("leave", { evt: e });
+      console.debug(listId, { evt });
     }
   },
   created() {
