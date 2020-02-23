@@ -62,6 +62,7 @@ export default {
         },
         setSelection(item, index) {
             if (item === this.selectedItem || this.valueSelector(item) === this.valueSelector(this.selectedItem)) {
+                // ignore when item didn't change + prevent infinite loop
                 return;
             }
 
@@ -96,6 +97,9 @@ export default {
     watch: {
         value(newVal) {
             this.setSelection(newVal);
+        },
+        search(newVal) {
+            this.debouncedSearch = debounceToPromise(newVal, this.debounceTime);
         }
     },
     created() {

@@ -7,7 +7,7 @@
         <Autocomplete
           input-id="qFruit"
           v-model="selectedCountry"
-          :maxResults="5"
+          :maxResults="maxResults"
           :search="searchCountries"
           :resultSelector="x => (x ? x.title + ' (' + x.code + ')' : '')"
           :valueSelector="x => (x ? x.title : '')"
@@ -21,6 +21,17 @@
         >
           Reset
         </button>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-3">Maximum results</label>
+      <div class="col-9">
+        <select v-model="maxResults">
+          <option :value="3">3 results</option>
+          <option :value="5">5 results</option>
+          <option :value="10">10 results</option>
+          <option :value="20">20 results</option>
+        </select>
       </div>
     </div>
     <div class="row">
@@ -46,7 +57,8 @@ export default {
   data() {
     return {
       selectedCountry: null,
-      countries: []
+      countries: [],
+      maxResults: 5
     };
   },
   computed: {

@@ -8,6 +8,7 @@
       :search="searchCountries"
       :resultSelector="x => (x ? x.title + ' (' + x.code + ')' : '')"
       :valueSelector="x => (x ? x.title : '')"
+      :maxResults="maxResults"
       :debounceTime="250"
       @input="onChangeCountry"
       ref="countrySelector"
@@ -18,6 +19,12 @@
         </span>
       </template>
       <template v-slot:append>
+        <select v-model="maxResults" class="form-control">
+          <option :value="3">3 results</option>
+          <option :value="5">5 results</option>
+          <option :value="10">10 results</option>
+          <option :value="20">20 results</option>
+        </select>
         <button
           type="button"
           class="btn btn-outline-secondary bg-light"
@@ -46,7 +53,8 @@ export default {
   data() {
     return {
       selectedCountry: null,
-      countries: []
+      countries: [],
+      maxResults: 5
     };
   },
   computed: {
