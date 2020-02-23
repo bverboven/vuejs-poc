@@ -1,20 +1,26 @@
 <template>
-  <div>
-    <h2>
-      <a href="https://github.com/SortableJS/Vue.Draggable" target="_blank">
-        Sortable List
-      </a>
-    </h2>
-    <SortableList1 />
-  </div>
+  <section>
+    <ul class="nav nav-pills mb-3">
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'sortable' }"
+          class="nav-link"
+          active-class="active"
+          exact
+        >
+          Sortable
+        </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link
+          :to="{ name: 'draggable' }"
+          class="nav-link"
+          active-class="active"
+        >
+          Draggable
+        </router-link>
+      </li>
+    </ul>
+    <router-view></router-view>
+  </section>
 </template>
-
-<script>
-import SortableList1 from "./SortableList-vuedraggable.vue";
-
-export default {
-  components: {
-    SortableList1
-  }
-};
-</script>

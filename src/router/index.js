@@ -58,7 +58,20 @@ const routes = [
     component: () => import("@/poc/sortable-list/Home"),
     meta: {
       sectionTitle: "Sortable list"
-    }
+    },
+    redirect: { name: 'sortable' },
+    children: [
+      {
+        name: "sortable",
+        path: "sortable",
+        component: () => import("@/poc/sortable-list/samples/Sortable")
+      },
+      {
+        name: "draggable",
+        path: "draggable",
+        component: () => import("@/poc/sortable-list/samples/DraggableBetweenLists")
+      }
+    ]
   },
   {
     name: "carousel",

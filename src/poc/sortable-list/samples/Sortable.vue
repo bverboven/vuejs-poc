@@ -1,6 +1,13 @@
 <template>
-  <div>
-    DRAGGING: {{ dragging }}
+  <article>
+    <h2>Sortable List</h2>
+    <p class="text-info">
+      link:
+      <a href="https://github.com/SortableJS/Vue.Draggable" target="_blank">
+        https://github.com/SortableJS/Vue.Draggable
+      </a>
+    </p>
+    Dragging: {{ dragging }}
     <draggable
       tag="ul"
       ghost-class="ghost"
@@ -14,7 +21,14 @@
         {{ item.title }}
       </li>
     </draggable>
-  </div>
+
+    <h2>Log</h2>
+    <div v-if="lastItem">
+      Moved {{ lastItem.title }}
+      <span v-show="start >= 0"> from position {{ start + 1 }} </span>
+      <span v-show="end >= 0"> to position {{ end + 1 }} </span>
+    </div>
+  </article>
 </template>
 
 <script>
@@ -26,7 +40,9 @@ export default {
     return {
       dragging: false,
       items: [],
-      changes: 0
+      lastItem: null,
+      start: -1,
+      end: -1
     };
   },
   computed: {
@@ -39,16 +55,18 @@ export default {
   },
   methods: {
     change(e) {
-      console.debug("Changed list", {
-        evt: e,
-        items: this.items.map(x => x.title)
-      });
       const oldIndex = e.oldIndex;
       const newIndex = e.newIndex;
+      this.lastItem = this.sortedItems[oldIndex];
+      this.start = oldIndex;
+      this.end = newIndex;
       this.move(oldIndex, newIndex);
+      // logging output
+      this.lastItem = this.sortedItems[oldIndex];
+      this.start = oldIndex;
+      this.end = newIndex;
     },
     move(oldIndex, newIndex) {
-      console.debug("Moving", { oldIndex, newIndex });
       const items = [...this.sortedItems];
       const item = items[oldIndex];
 
@@ -58,14 +76,9 @@ export default {
         ...item,
         sortOrder: items.indexOf(item)
       }));
-      this.changes++;
-
-      console.debug("Moved", {
-        items: this.items.map(x => x.title + " (" + x.sortOrder + ")")
-      });
     }
   },
-  mounted() {
+  created() {
     this.items = Array(5)
       .fill({})
       .map((x, i) => ({
@@ -73,7 +86,9 @@ export default {
         sortOrder: i + 1,
         title: "Item #" + (i + 1)
       }));
-    console.debug("Mounted SortableList", { component: this });
+  },
+  mounted() {
+    // initial move
     this.move(3, 1);
   }
 };
