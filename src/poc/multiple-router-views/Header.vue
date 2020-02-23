@@ -22,3 +22,13 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+header {
+  border: 2px dotted transparent;
+
+  .nav-link {
+    text-transform: capitalize;
+  }
+}
+</style>
