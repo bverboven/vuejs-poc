@@ -7,26 +7,36 @@
         https://github.com/SortableJS/Vue.Draggable
       </a>
     </p>
-    Dragging: {{ dragging }}
-    <draggable
-      tag="ul"
-      ghost-class="ghost"
-      @start="dragging = true"
-      @end="
-        change($event);
-        dragging = false;
-      "
-    >
-      <li v-for="item in sortedItems" :key="item.id" class="list-item">
-        {{ item.title }}
-      </li>
-    </draggable>
-
-    <h2>Log</h2>
-    <div v-if="lastItem">
-      Moved {{ lastItem.title }}
-      <span v-show="start >= 0"> from position {{ start + 1 }} </span>
-      <span v-show="end >= 0"> to position {{ end + 1 }} </span>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Sorted list</h3>
+        <draggable
+          tag="ul"
+          class="list-group mb-3"
+          ghost-class="ghost"
+          @start="dragging = true"
+          @end="
+            change($event);
+            dragging = false;
+          "
+        >
+          <li
+            v-for="item in sortedItems"
+            :key="item.id"
+            class="list-group-item"
+          >
+            {{ item.title }}
+          </li>
+        </draggable>
+      </div>
+      <div class="col-md-6">
+        <h3>Actual list</h3>
+        <ul class="list-group">
+          <li v-for="item in items" :key="item.id" class="list-group-item">
+            {{ item.title }} | sortOrder: {{ item.sortOrder }}
+          </li>
+        </ul>
+      </div>
     </div>
   </article>
 </template>
@@ -38,11 +48,7 @@ export default {
   components: { draggable },
   data() {
     return {
-      dragging: false,
-      items: [],
-      lastItem: null,
-      start: -1,
-      end: -1
+      items: []
     };
   },
   computed: {
@@ -57,14 +63,9 @@ export default {
     change(e) {
       const oldIndex = e.oldIndex;
       const newIndex = e.newIndex;
-      this.lastItem = this.sortedItems[oldIndex];
       this.start = oldIndex;
       this.end = newIndex;
       this.move(oldIndex, newIndex);
-      // logging output
-      this.lastItem = this.sortedItems[oldIndex];
-      this.start = oldIndex;
-      this.end = newIndex;
     },
     move(oldIndex, newIndex) {
       const items = [...this.sortedItems];
@@ -95,21 +96,8 @@ export default {
 </script>
 
 <style scoped>
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-.list-item {
-  margin: 0.25em 0;
-  padding: 0.25em;
-  border: 1px dotted rgba(100, 100, 100.2);
+.list-group-item {
   cursor: move;
-}
-
-.sortable-chosen {
-  opacity: 1;
-  background-color: #fff;
 }
 
 .ghost {

@@ -59,8 +59,13 @@ const routes = [
     meta: {
       sectionTitle: "Sortable list"
     },
-    redirect: { name: 'sortable' },
+    redirect: { name: "basic" },
     children: [
+      {
+        name: "basic",
+        path: "basic",
+        component: () => import("@/poc/sortable-list/samples/Basic")
+      },
       {
         name: "sortable",
         path: "sortable",

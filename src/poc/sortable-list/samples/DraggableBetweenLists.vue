@@ -28,7 +28,7 @@
       <div class="col-2"><strong>&lt; - &gt;</strong></div>
       <div class="col-4">
         <h3>List 2</h3>
-        <div @mouseover="onEnter" @mouseout="onLeave">
+        <div @mouseover="list2Hovering = true" @mouseout="list2Hovering = false">
           <draggable
             class="list-group"
             :class="{ empty: list2.length <= 1 }"
@@ -54,7 +54,8 @@ export default {
   data() {
     return {
       list1: [],
-      list2: []
+      list2: [],
+      list2Hovering: false
     };
   },
   methods: {
