@@ -25,6 +25,9 @@ const routes = [
     name: "autocomplete",
     path: "/autocomplete",
     component: () => import("@/poc/autocomplete/Home"),
+    meta: {
+      sectionTitle: "Autocomplete"
+    },
     children: [
       {
         name: "trevoreyreAutocomplete",
@@ -41,23 +44,37 @@ const routes = [
         path: "bootstrap/:countryCode?",
         component: () => import("@/poc/autocomplete/samples/BootstrapBbv"),
         props: route => ({ countryCode: route.params.countryCode })
+      },
+      {
+        name: "datalistAutocomplete",
+        path: "datalist",
+        component: () => import("@/poc/autocomplete/samples/DataList")
       }
     ]
   },
   {
     name: "sortableList",
     path: "/sortable-list",
-    component: () => import("@/poc/sortable-list/Home")
+    component: () => import("@/poc/sortable-list/Home"),
+    meta: {
+      sectionTitle: "Sortable list"
+    }
   },
   {
     name: "carousel",
     path: "/carousel",
-    component: () => import("@/poc/carousel/Home")
+    component: () => import("@/poc/carousel/Home"),
+    meta: {
+      sectionTitle: "Carousel"
+    }
   },
   {
     name: "multpleViews",
     path: "/multiple-views",
     component: () => import("@/poc/multiple-router-views/Home"),
+    meta: {
+      sectionTitle: "Multiple router-views"
+    },
     children: [
       {
         name: "fruit",

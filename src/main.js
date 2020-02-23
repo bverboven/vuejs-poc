@@ -7,6 +7,8 @@ import "@/assets/bootstrap.min.css";
 
 Vue.config.productionTip = false;
 
+import "@/poc/document-title/router-document-title";
+
 new Vue({
   router,
   store,
