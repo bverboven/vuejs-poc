@@ -6,25 +6,37 @@
       input-id="qCountry"
       v-model="selectedCountry"
       :search="searchCountries"
-      :resultSelector="x => (x ? x.title + ' (' + x.code + ')' : '')"
-      :valueSelector="x => (x ? x.title : '')"
+      :valueSelector="valueSelector"
       :maxResults="maxResults"
       :debounceTime="250"
       @input="onChangeCountry"
       ref="countrySelector"
     >
+      <!-- slot for displaying result items -->
+      <template v-slot:resultItem="result">
+        <b>{{ result.item.title }}</b>
+        <br />
+        <span class="ml-3 d-block">
+          code: {{ result.item.code }}<br />
+          region: {{ result.item.region }}
+        </span>
+      </template>
+
+      <!-- input prepend group -->
       <template v-slot:prepend>
         <span class="input-group-text">
           Search
         </span>
-      </template>
-      <template v-slot:append>
         <select v-model="maxResults" class="form-control">
           <option :value="3">3 results</option>
           <option :value="5">5 results</option>
           <option :value="10">10 results</option>
           <option :value="20">20 results</option>
         </select>
+      </template>
+
+      <!-- input append group -->
+      <template v-slot:append>
         <button
           type="button"
           class="btn btn-outline-secondary bg-light"
@@ -35,7 +47,12 @@
       </template>
     </Autocomplete>
     <label class="mr-2">Selected:</label>
-    <span>{{ selectedCountryTitle || "nothing yet" }}</span>
+    <span v-if="selectedCountry != null">
+      {{ selectedCountry.title }} <b>({{ selectedCountry.code }})</b>
+    </span>
+    <span v-show="selectedCountry == null">
+      nothing yet
+    </span>
   </div>
 </template>
 
@@ -54,7 +71,7 @@ export default {
     return {
       selectedCountry: null,
       countries: [],
-      maxResults: 5
+      maxResults: 3
     };
   },
   computed: {
@@ -63,13 +80,19 @@ export default {
     }
   },
   methods: {
+    valueSelector: x => (x ? x.title : ""),
     async searchCountries(input) {
       const normalizedInput = input.toLowerCase();
-      return (await this.getCountries()).filter(
-        c =>
-          c.title.toLowerCase().indexOf(normalizedInput) === 0 ||
-          c.code.toLowerCase().indexOf(normalizedInput) === 0
-      );
+      const countries = await this.getCountries();
+      return countries
+        .filter(c => c.code.toLowerCase() === normalizedInput)
+        .concat(
+          countries.filter(
+            c =>
+              c.title.toLowerCase().indexOf(normalizedInput) === 0 ||
+              c.code.toLowerCase().indexOf(normalizedInput) === 0
+          )
+        );
     },
     onChangeCountry(item) {
       this.selectedCountry = item;

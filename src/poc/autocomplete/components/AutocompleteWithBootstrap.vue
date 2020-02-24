@@ -38,7 +38,9 @@
             class="autocomplete-item"
             :class="[itemClass, { selected: item == selectedItem }]"
           >
-            {{ label(item) }}
+            <slot name="resultItem" :item="item">
+              <span v-html="resultSelector(item)"></span>
+            </slot>
           </li>
         </ul>
       </div>
