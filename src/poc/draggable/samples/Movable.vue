@@ -22,10 +22,19 @@
         >
           <div class="list-group-item" v-for="item in list1" :key="item.name">
             {{ item.name }}
+            <button
+              type="button"
+              @click="moveItem(item, list1, list2)"
+              class="btn btn-sm btn-secondary float-right"
+            >
+              &gt;&gt;
+            </button>
           </div>
         </draggable>
       </div>
-      <div class="col-2"><strong>&lt; - &gt;</strong></div>
+      <div class="col-2 text-center">
+        <strong>&lt; - &gt;</strong>
+      </div>
       <div class="col-4">
         <h3>List 2</h3>
         <div
@@ -40,7 +49,16 @@
             @change="log('list2', $event)"
           >
             <div class="list-group-item" v-for="item in list2" :key="item.name">
-              {{ item.name }}
+              <button
+                type="button"
+                @click="moveItem(item, list2, list1)"
+                class="btn btn-sm btn-secondary float-left"
+              >
+                &lt;&lt;
+              </button>
+              <span class="float-right">
+                {{ item.name }}
+              </span>
             </div>
           </draggable>
         </div>
@@ -62,6 +80,11 @@ export default {
     };
   },
   methods: {
+    moveItem(item, srcList, targetList) {
+      const itemIndex = srcList.findIndex(x => x === item);
+      srcList.splice(itemIndex, 1);
+      targetList.push(item);
+    },
     log: function(listId, evt) {
       console.debug(listId, { evt });
     }

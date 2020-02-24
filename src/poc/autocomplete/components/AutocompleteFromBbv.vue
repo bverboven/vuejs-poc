@@ -37,7 +37,7 @@
           class="autocomplete-item"
           :class="[itemClass, { selected: item == selectedItem }]"
         >
-          {{ label(item) }}
+          {{ resultSelector(item) }}
         </li>
       </ul>
     </div>

@@ -4,13 +4,13 @@
       <router-link :to="{ name: 'autocomplete' }" class="list-group-item">
         Autocomplete
       </router-link>
-      <router-link :to="{ name: 'sortableList' }" class="list-group-item">
-        Sortable list
+      <router-link :to="{ name: 'draggable' }" class="list-group-item">
+        Draggable
       </router-link>
       <router-link :to="{ name: 'carousel' }" class="list-group-item">
         Carousel
       </router-link>
-      <router-link :to="{ name: 'multpleViews' }" class="list-group-item">
+      <router-link :to="{ name: 'multipleViews' }" class="list-group-item">
         Multiple views
       </router-link>
     </div>

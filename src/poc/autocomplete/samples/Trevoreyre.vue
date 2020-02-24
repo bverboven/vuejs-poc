@@ -8,7 +8,7 @@
       </a>
     </p>
     <div>
-      <label for="q">Search </label>
+      <label for="q">Search country</label>
       <Autocomplete
         id="q"
         :search="search"

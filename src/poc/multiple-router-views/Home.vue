@@ -19,8 +19,14 @@
         >
       </li>
     </ul>
+
     <router-view name="header" />
+
     <router-view name="main" />
+
+    <p v-if="$route.name == 'multipleViews'" class="text-info">
+      Select a view above.
+    </p>
   </section>
 </template>
 

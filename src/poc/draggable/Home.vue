@@ -23,14 +23,15 @@
       </li>
       <li class="nav-item">
         <router-link
-          :to="{ name: 'draggable' }"
+          :to="{ name: 'movable' }"
           class="nav-link"
           active-class="active"
         >
-          Draggable
+          Movable
         </router-link>
       </li>
     </ul>
+
     <router-view></router-view>
   </section>
 </template>

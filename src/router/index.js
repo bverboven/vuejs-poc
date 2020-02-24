@@ -24,7 +24,7 @@ const routes = [
   {
     name: "autocomplete",
     path: "/autocomplete",
-    component: () => import("@/poc/autocomplete/Home"),
+    component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/Home"),
     meta: {
       sectionTitle: "Autocomplete"
     },
@@ -32,64 +32,64 @@ const routes = [
       {
         name: "trevoreyreAutocomplete",
         path: "trevoreyre",
-        component: () => import("@/poc/autocomplete/samples/Trevoreyre")
+        component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/samples/Trevoreyre")
       },
       {
         name: "basicAutocomplete",
         path: "basic",
-        component: () => import("@/poc/autocomplete/samples/BasicBbv")
+        component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/samples/BasicBbv")
       },
       {
         name: "bootstrapAutocomplete",
         path: "bootstrap/:countryCode?",
-        component: () => import("@/poc/autocomplete/samples/BootstrapBbv"),
+        component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/samples/BootstrapBbv"),
         props: route => ({ countryCode: route.params.countryCode })
       },
       {
         name: "datalistAutocomplete",
         path: "datalist",
-        component: () => import("@/poc/autocomplete/samples/DataList")
+        component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/samples/DataList")
       }
     ]
   },
   {
-    name: "sortableList",
-    path: "/sortable-list",
-    component: () => import("@/poc/sortable-list/Home"),
+    name: "draggable",
+    path: "/draggable",
+    component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/Home"),
     meta: {
-      sectionTitle: "Sortable list"
+      sectionTitle: "Draggable"
     },
     redirect: { name: "basic" },
     children: [
       {
         name: "basic",
         path: "basic",
-        component: () => import("@/poc/sortable-list/samples/Basic")
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Basic")
       },
       {
         name: "sortable",
         path: "sortable",
-        component: () => import("@/poc/sortable-list/samples/Sortable")
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Sortable")
       },
       {
-        name: "draggable",
-        path: "draggable",
-        component: () => import("@/poc/sortable-list/samples/DraggableBetweenLists")
+        name: "movable",
+        path: "movable",
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Movable")
       }
     ]
   },
   {
     name: "carousel",
     path: "/carousel",
-    component: () => import("@/poc/carousel/Home"),
+    component: () => import(/* webpackChunkName: "carousel" */ "@/poc/carousel/Home"),
     meta: {
       sectionTitle: "Carousel"
     }
   },
   {
-    name: "multpleViews",
+    name: "multipleViews",
     path: "/multiple-views",
-    component: () => import("@/poc/multiple-router-views/Home"),
+    component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Home"),
     meta: {
       sectionTitle: "Multiple router-views"
     },
@@ -98,8 +98,8 @@ const routes = [
         name: "fruit",
         path: "fruit",
         components: {
-          header: () => import("@/poc/multiple-router-views/Header"),
-          main: () => import("@/poc/multiple-router-views/Main")
+          header: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Header"),
+          main: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Main")
         },
         props: {
           header: () => ({
@@ -113,12 +113,12 @@ const routes = [
           {
             name: "fruitHome",
             path: "",
-            component: () => import("@/poc/multiple-router-views/fruit/Fruit")
+            component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/fruit/Fruit")
           },
           {
             name: "fruitDetails",
             path: ":fruit",
-            component: () => import("@/poc/multiple-router-views/Details"),
+            component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Details"),
             props: route => ({
               item: fruit.find(f => f.title === route.params.fruit)
             })
@@ -129,8 +129,8 @@ const routes = [
         name: "vegetables",
         path: "vegetables",
         components: {
-          header: () => import("@/poc/multiple-router-views/Header"),
-          main: () => import("@/poc/multiple-router-views/Main")
+          header: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Header"),
+          main: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Main")
         },
         props: {
           header: () => ({
@@ -144,13 +144,12 @@ const routes = [
           {
             name: "vegetablesHome",
             path: "",
-            component: () =>
-              import("@/poc/multiple-router-views/vegetables/Vegetables")
+            component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/vegetables/Vegetables")
           },
           {
             name: "vegetablesDetails",
             path: ":vegetable",
-            component: () => import("@/poc/multiple-router-views/Details"),
+            component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Details"),
             props: route => ({
               item: vegetables.find(f => f.title === route.params.vegetable)
             })

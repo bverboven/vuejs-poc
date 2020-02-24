@@ -32,11 +32,6 @@ export default {
             isOpen: false
         };
     },
-    computed: {
-        label() {
-            return item => this.resultSelector(item);
-        }
-    },
     methods: {
         async onSearch() {
             this.isOpen = true;
