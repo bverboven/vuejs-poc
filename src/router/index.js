@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
+import PrivacyNotice from "@/poc/gdpr/PrivacyNotice";
 
 Vue.use(VueRouter);
 
@@ -59,10 +60,10 @@ const routes = [
     meta: {
       sectionTitle: "Draggable"
     },
-    redirect: { name: "basic" },
+    redirect: { name: "basicDraggable" },
     children: [
       {
-        name: "basic",
+        name: "basicDraggable",
         path: "basic",
         component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Basic")
       },
@@ -157,6 +158,31 @@ const routes = [
         ]
       }
     ]
+  },
+  {
+    name: "gdpr",
+    path: "/gdpr",
+    component: () => import(/* webpackChunkName: "gdpr" */ "@/poc/gdpr/Home"),
+    meta: {
+      sectionTitle: "GDPR"
+    },
+    children: [
+      {
+        name: "vueCookieLaw",
+        path: "basic",
+        component: () => import(/* webpackChunkName: "gdpr" */ "@/poc/gdpr/samples/VueCookieLaw")
+      },
+      {
+        name: "vueCookieLawSlots",
+        path: "slots",
+        component: () => import(/* webpackChunkName: "gdpr" */ "@/poc/gdpr/samples/VueCookieLawSlots")
+      }
+    ]
+  },
+  {
+    name: "privacyNotice",
+    path: "/privacy",
+    component: PrivacyNotice
   }
 ];
 

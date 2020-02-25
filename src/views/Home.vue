@@ -1,21 +1,36 @@
 <template>
   <div class="home">
     <div class="list-group">
-      <router-link :to="{ name: 'autocomplete' }" class="list-group-item">
-        Autocomplete
-      </router-link>
-      <router-link :to="{ name: 'draggable' }" class="list-group-item">
-        Draggable
-      </router-link>
-      <router-link :to="{ name: 'carousel' }" class="list-group-item">
-        Carousel
-      </router-link>
-      <router-link :to="{ name: 'multipleViews' }" class="list-group-item">
-        Multiple views
+      <router-link
+        v-for="section in sections"
+        :key="section.name"
+        :to="{ name: section.name }"
+        class="list-group-item"
+      >
+        {{ section.title }}
       </router-link>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      sections: []
+    };
+  },
+  mounted() {
+    // autogenerate sections, based on routes with a meta-property
+    this.sections = this.$router.options.routes
+      .filter(r => r.meta != null)
+      .map(r => ({
+        title: r.meta.sectionTitle,
+        name: r.name
+      }));
+  }
+};
+</script>
 
 <style scoped>
 a:hover {
