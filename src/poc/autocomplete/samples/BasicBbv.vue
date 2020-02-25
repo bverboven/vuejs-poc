@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <article>
     <h2>Autocomplete (fruit)</h2>
     <p class="text-info">
       Loosely based on
@@ -34,7 +34,7 @@
       <label class="col-3">Selected: </label>
       <div class="col-9">{{ selectedFruit || "nothing yet" }}</div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>

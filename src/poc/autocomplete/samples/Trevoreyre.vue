@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <article>
     <h2>Autocomplete (Trevoreyre)</h2>
     <p class="text-info">
       link:
@@ -20,7 +20,7 @@
       <label class="mr-2">Selected: </label>
       <span>{{ selected || "no selection" }}</span>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <article>
     <h2>Autocomplete (fruit)</h2>
     <div class="row">
       <label for="qFruit" class="col-3">Search</label>
@@ -40,7 +40,7 @@
         {{ selectedCountryTitle || "nothing yet" }}
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>

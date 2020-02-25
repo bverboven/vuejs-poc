@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <article>
     <h2>Autocomplete (countries)</h2>
     <label for="qCountry">Search</label>
     <Autocomplete
@@ -14,11 +14,18 @@
     >
       <!-- slot for displaying result items -->
       <template v-slot:resultItem="result">
-        <b>{{ result.item.title }}</b>
-        <br />
-        <span class="ml-3 d-block">
-          code: {{ result.item.code }}<br />
-          region: {{ result.item.region }}
+        <span
+          class="d-block"
+          :class="{
+            'bg-light': (result.q || '').toUpperCase() == result.item.code
+          }"
+        >
+          <b>{{ result.item.title }}</b>
+          <br />
+          <span class="ml-3 d-block">
+            code: {{ result.item.code }}<br />
+            region: {{ result.item.region }}
+          </span>
         </span>
       </template>
 
@@ -53,17 +60,20 @@
     <span v-show="selectedCountry == null">
       nothing yet
     </span>
-  </div>
+
+    <Info />
+  </article>
 </template>
 
 <script>
 import Autocomplete from "../components/AutocompleteWithBootstrap";
+import Info from "../components/Info";
 import countries from "../data/countries.js";
 
 const getCountries = async () => countries;
 
 export default {
-  components: { Autocomplete },
+  components: { Autocomplete, Info },
   props: {
     countryCode: { type: String, required: false }
   },
@@ -89,8 +99,9 @@ export default {
         .concat(
           countries.filter(
             c =>
-              c.title.toLowerCase().indexOf(normalizedInput) === 0 ||
-              c.code.toLowerCase().indexOf(normalizedInput) === 0
+              c.code.toLowerCase() !== normalizedInput &&
+              (c.title.toLowerCase().indexOf(normalizedInput) === 0 ||
+                c.code.toLowerCase().indexOf(normalizedInput) === 0)
           )
         );
     },
