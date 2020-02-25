@@ -3,7 +3,7 @@
     <ul class="nav nav-pills mb-3">
       <li class="nav-item">
         <router-link
-          :to="{ name: 'basic' }"
+          :to="{ name: 'basicDraggable' }"
           class="nav-link"
           active-class="active"
           exact
