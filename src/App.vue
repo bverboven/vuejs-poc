@@ -1,15 +1,22 @@
 <template>
   <div id="app" class="container">
-    <h1>
-      <a href="https://vuejs.org/" target="_blank">
-        <img alt="Vue logo" src="./assets/logo.png" class="vue-logo" />
-      </a>
-      <router-link :to="{ name: 'home' }">
-        Proof of Concept
-      </router-link>
-    </h1>
+    <header>
+      <h1>
+        <a href="https://vuejs.org/">
+          <img alt="Vue logo" src="./assets/logo.png" class="vue-logo" />
+        </a>
+        <router-link :to="{ name: 'home' }">
+          Proof of Concept
+        </router-link>
+      </h1>
+      <GitHub />
+    </header>
 
-    <router-view />
+    <main>
+      <router-view />
+    </main>
+
+    <footer></footer>
 
     <div class="app-cookie">
       <CookieLaw storage-name="app-cookie:accepted" />
@@ -18,10 +25,12 @@
 </template>
 
 <script>
+import GitHub from "@/components/GitHub";
 import CookieLaw from "vue-cookie-law";
 
 export default {
   components: {
+    GitHub,
     CookieLaw
   }
 };

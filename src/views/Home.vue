@@ -25,7 +25,7 @@ export default {
     this.sections = this.$router.options.routes
       .filter(r => r.meta != null)
       .map(r => ({
-        title: r.meta.sectionTitle,
+        title: r.meta.title,
         name: r.name
       }));
   }

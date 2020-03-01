@@ -5,7 +5,7 @@
       Loosely based on
       <a
         href="https://alligator.io/vuejs/vue-autocomplete-component/"
-        target="_blank"
+       
       >
         https://alligator.io/vuejs/vue-autocomplete-component
       </a>

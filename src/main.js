@@ -8,7 +8,8 @@ import "@/assets/main.scss";
 
 Vue.config.productionTip = false;
 
-import "@/poc/document-title/router-document-title";
+import documentTitlePlugin from "@/poc/document-title/plugin";
+Vue.use(documentTitlePlugin, { router, defaultTitle: "Vue.js PoC" });
 
 new Vue({
   router,

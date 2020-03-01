@@ -80,10 +80,10 @@
         </router-link>
         |
         <router-link
-          :to="{ name: 'bootstrapAutocomplete', params: { countryCode: 'CD' } }"
+          :to="{ name: 'bootstrapAutocomplete', params: { countryCode: 'CH' } }"
           active-class="active"
         >
-          DRC
+          Switzerland
         </router-link>
       </div>
       <router-link

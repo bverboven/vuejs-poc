@@ -4,7 +4,7 @@
 
     <p class="text-info">
       Link:
-      <a href="https://github.com/apertureless/vue-cookie-law" target="_blank">
+      <a href="https://github.com/apertureless/vue-cookie-law">
         https://github.com/apertureless/vue-cookie-law
       </a>
     </p>

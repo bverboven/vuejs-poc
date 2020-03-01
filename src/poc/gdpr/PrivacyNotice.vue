@@ -2,7 +2,7 @@
   <div class="container">
     <h2>Privacy Policy</h2>
     <p class="text-info">
-      From <a href="https://gdpr.eu/privacy-policy/" target="_blank">GDPR.EU</a>
+      From <a href="https://gdpr.eu/privacy-policy/">GDPR.EU</a>
     </p>
     <h4>Data collected on the basis of consent</h4>
     <p>

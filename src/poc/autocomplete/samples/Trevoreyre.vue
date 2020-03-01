@@ -3,7 +3,7 @@
     <h2>Autocomplete (Trevoreyre)</h2>
     <p class="text-info">
       link:
-      <a href="https://autocomplete.trevoreyre.com/" target="_blank">
+      <a href="https://autocomplete.trevoreyre.com/">
         https://autocomplete.trevoreyre.com
       </a>
     </p>

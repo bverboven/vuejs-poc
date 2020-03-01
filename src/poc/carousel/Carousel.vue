@@ -5,7 +5,7 @@
       link:
       <a
         href="https://github.com/surmon-china/vue-awesome-swiper"
-        target="_blank"
+       
       >
         https://github.com/surmon-china/vue-awesome-swiper
       </a>

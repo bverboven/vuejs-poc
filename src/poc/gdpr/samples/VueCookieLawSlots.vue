@@ -4,7 +4,7 @@
 
     <p class="text-info">
       Link:
-      <a href="https://github.com/apertureless/vue-cookie-law" target="_blank">
+      <a href="https://github.com/apertureless/vue-cookie-law">
         https://github.com/apertureless/vue-cookie-law
       </a>
     </p>
@@ -23,7 +23,7 @@
             We use cookies to ensure that we give you the best experience on our
             website.
             <router-link :to="{ name: 'privacyNotice' }">More info</router-link
-            >. (<a href="#" @click="props.close">Close</a>)
+            >. (<a href="#" @click="props.close">Close without cookie</a>)
           </div>
           <button class="btn btn-primary" @click="props.accept">Ok</button>
         </template>

@@ -5,7 +5,7 @@
       link:
       <a
         href="https://sortablejs.github.io/Vue.Draggable/#/two-lists"
-        target="_blank"
+       
       >
         https://sortablejs.github.io/Vue.Draggable/#/two-lists
       </a>

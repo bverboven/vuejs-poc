@@ -1,5 +1,4 @@
 <template>
-
     <div class="row">
       <div class="col-md-6">
       <h3>Slots</h3>
@@ -20,15 +19,10 @@ props: {
       </div>
       <div class="col-md-6">
         <h3>Event(s)</h3>
-        <div class="list-group">
-          <div class="list-group-item">
-            input: selected item
-          </div>
-        </div>
+        <pre>
+@input: selected item</pre>
         <h3>Css</h3>
-        <div class="list-group">
-          <div class="list-group-item">
-            <pre>
+        <pre>
 div.autocomplete-container {
     div.autocomplete-items {
       ul {
@@ -36,9 +30,7 @@ div.autocomplete-container {
       }
     }              
 }
-            </pre>
-          </div>
-        </div>
+          </pre>
       </div>
     </div>
 </template>

@@ -1,14 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
+
+import Home from "../views/Home";
+import DummyRouterView from "@/components/DummyRouterView";
 import PrivacyNotice from "@/poc/gdpr/PrivacyNotice";
+
+const displayTitle = normalizedTitle => normalizedTitle.replace(/-+/g, ' ');
 
 Vue.use(VueRouter);
 
 const fruit = [
   { title: "apples", url: "https://en.wikipedia.org/wiki/Apple" },
-  { title: "strawberries", url: "https://en.wikipedia.org/wiki/Strawberry" },
-  { title: "oranges", url: "https://en.wikipedia.org/wiki/Orange_(fruit)" }
+  { title: "oranges", url: "https://en.wikipedia.org/wiki/Orange_(fruit)" },
+  { title: "mangos", url: "https://en.wikipedia.org/wiki/Mango" }
 ];
 const vegetables = [
   { title: "aubergines", url: "https://en.wikipedia.org/wiki/Eggplant" },
@@ -27,7 +31,8 @@ const routes = [
     path: "/autocomplete",
     component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/Home"),
     meta: {
-      sectionTitle: "Autocomplete"
+      documentTitle: "Autocomplete",
+      get title() { return this.documentTitle; }
     },
     children: [
       {
@@ -54,18 +59,77 @@ const routes = [
     ]
   },
   {
+    name: "breadcrumbs",
+    path: "/breadcrumbs",
+    component: () => import(/* webpackChunkName: "breadcrumbs" */ "@/poc/breadcrumbs/Home"),
+    meta: {
+      title: "Breadcrumbs"
+    },
+    children: [
+      {
+        name: "breadcrumbsSection",
+        path: ":section",
+        component: DummyRouterView,
+        meta: {
+          title: route => displayTitle(route.params.section)
+        },
+        children: [
+          {
+            name: "breadcrumbsCategory",
+            path: ":category",
+            component: DummyRouterView,
+            meta: {
+              title: route => displayTitle(route.params.category)
+            },
+            children: [
+              {
+                name: "breadcrumbsItem",
+                path: ":name",
+                template: '',
+                meta: {
+                  title: route => displayTitle(route.params.name)
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "breadcrumbsCatchOther",
+        path: "*",
+        template: '',
+        meta: {
+          title: "Other"
+        }
+      }
+    ]
+  },
+  {
+    name: "documentTitle",
+    path: "/document-title",
+    component: () => import("@/poc/document-title/Home"),
+    meta: {
+      title: "Document title"
+    }
+  },
+  {
     name: "draggable",
     path: "/draggable",
     component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/Home"),
     meta: {
-      sectionTitle: "Draggable"
+      title: "Draggable"
     },
     redirect: { name: "basicDraggable" },
     children: [
       {
         name: "basicDraggable",
         path: "basic",
-        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Basic")
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Draggable")
+      },
+      {
+        name: "draggableInContainer",
+        path: "drag-in-container",
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/DraggableInContainer")
       },
       {
         name: "sortable",
@@ -73,9 +137,34 @@ const routes = [
         component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Sortable")
       },
       {
+        name: "sortableWithSortOrder",
+        path: "sortable-with-sortoder",
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/SortableWithSortOrder")
+      },
+      {
         name: "movable",
-        path: "movable",
-        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/Movable")
+        path: "move-between-lists",
+        component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/samples/MovableBetweenLists")
+      }
+    ]
+  },
+  {
+    name: "calendar",
+    path: "/calendar",
+    component: () => import(/* webpackChunkName: "calendar" */ "@/poc/calendar/Home"),
+    meta: {
+      title: "Calendar"
+    },
+    children: [
+      {
+        name: "manukMinasyanCalendar",
+        path: "manuk-minasyan",
+        component: () => import(/* webpackChunkName: "calendar" */ "@/poc/calendar/samples/ManukMinasyan")
+      },
+      {
+        name: "richardTallentCalendar",
+        path: "richardTallent",
+        component: () => import(/* webpackChunkName: "calendar" */"@/poc/calendar/samples/RichardTallent")
       }
     ]
   },
@@ -84,7 +173,7 @@ const routes = [
     path: "/carousel",
     component: () => import(/* webpackChunkName: "carousel" */ "@/poc/carousel/Home"),
     meta: {
-      sectionTitle: "Carousel"
+      title: "Carousel"
     }
   },
   {
@@ -92,7 +181,7 @@ const routes = [
     path: "/multiple-views",
     component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Home"),
     meta: {
-      sectionTitle: "Multiple router-views"
+      title: "Multiple router-views"
     },
     children: [
       {
@@ -164,7 +253,7 @@ const routes = [
     path: "/gdpr",
     component: () => import(/* webpackChunkName: "gdpr" */ "@/poc/gdpr/Home"),
     meta: {
-      sectionTitle: "GDPR"
+      title: "GDPR"
     },
     children: [
       {

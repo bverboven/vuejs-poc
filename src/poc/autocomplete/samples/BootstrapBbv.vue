@@ -1,7 +1,6 @@
 <template>
   <article>
     <h2>Autocomplete (countries)</h2>
-    <label for="qCountry">Search</label>
     <Autocomplete
       input-id="qCountry"
       v-model="selectedCountry"
@@ -53,27 +52,29 @@
         </button>
       </template>
     </Autocomplete>
-    <label class="mr-2">Selected:</label>
-    <span v-if="selectedCountry != null">
-      {{ selectedCountry.title }} <b>({{ selectedCountry.code }})</b>
-    </span>
-    <span v-show="selectedCountry == null">
-      nothing yet
-    </span>
+    <p class="pl-2">
+      <span v-if="selectedCountry != null">
+        {{ selectedCountry.title }} <b>({{ selectedCountry.code }})</b>
+      </span>
+      <span v-show="selectedCountry == null">
+        Nothing yet
+      </span>
+      selected
+    </p>
 
-    <Info />
+    <Documentation />
   </article>
 </template>
 
 <script>
 import Autocomplete from "../components/AutocompleteWithBootstrap";
-import Info from "../components/Info";
+import Documentation from "./Documentation";
 import countries from "../data/countries.js";
 
 const getCountries = async () => countries;
 
 export default {
-  components: { Autocomplete, Info },
+  components: { Autocomplete, Documentation },
   props: {
     countryCode: { type: String, required: false }
   },

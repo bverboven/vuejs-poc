@@ -1,5 +1,5 @@
 <template>
-  <header class="mt-2 mb-2" :style="{ borderColor: color }">
+  <header class="mb-2" :style="{ borderColor: color }">
     <ul class="nav">
       <li class="nav-item" v-for="(item, index) in items" :key="index">
         <router-link
