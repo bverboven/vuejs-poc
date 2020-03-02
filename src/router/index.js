@@ -157,6 +157,11 @@ const routes = [
     },
     children: [
       {
+        name: "nathanReyesCalendar",
+        path: "nathan-reyes",
+        component: () => import(/* webpackChunkName: "calendar" */ "@/poc/calendar/samples/NathanReyes")
+      },
+      {
         name: "manukMinasyanCalendar",
         path: "manuk-minasyan",
         component: () => import(/* webpackChunkName: "calendar" */ "@/poc/calendar/samples/ManukMinasyan")
