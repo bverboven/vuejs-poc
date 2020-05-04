@@ -30,6 +30,7 @@ const routes = [
     name: "autocomplete",
     path: "/autocomplete",
     component: () => import(/* webpackChunkName: "autocomplete" */ "@/poc/autocomplete/Home"),
+    redirect: { name: "trevoreyreAutocomplete" },
     meta: {
       documentTitle: "Autocomplete",
       get title() { return this.documentTitle; }
@@ -116,10 +117,10 @@ const routes = [
     name: "draggable",
     path: "/draggable",
     component: () => import(/* webpackChunkName: "draggable" */ "@/poc/draggable/Home"),
+    redirect: { name: "basicDraggable" },
     meta: {
       title: "Draggable"
     },
-    redirect: { name: "basicDraggable" },
     children: [
       {
         name: "basicDraggable",
@@ -152,6 +153,7 @@ const routes = [
     name: "calendar",
     path: "/calendar",
     component: () => import(/* webpackChunkName: "calendar" */ "@/poc/calendar/Home"),
+    redirect: { name: "nathanReyesCalendar" },
     meta: {
       title: "Calendar"
     },
@@ -177,14 +179,28 @@ const routes = [
     name: "carousel",
     path: "/carousel",
     component: () => import(/* webpackChunkName: "carousel" */ "@/poc/carousel/Home"),
+    redirect: { name: "surmonChinaCarousel" },
     meta: {
       title: "Carousel"
-    }
+    },
+    children: [
+      {
+        name: "surmonChinaCarousel",
+        path: "vue-awesome-swiper",
+        component: () => import(/* webpackChunkName: "carousel" */ "@/poc/carousel/samples/SurmonChina")
+      },
+      {
+        name: "lukaszFlorczakCarousel",
+        path: "vue-agile",
+        component: () => import(/* webpackChunkName: "carousel" */ "@/poc/carousel/samples/LukaszFlorczak")
+      }
+    ]
   },
   {
     name: "multipleViews",
     path: "/multiple-views",
     component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Home"),
+    redirect: { name: "fruit" },
     meta: {
       title: "Multiple router-views"
     },
@@ -208,15 +224,23 @@ const routes = [
           {
             name: "fruitHome",
             path: "",
-            component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/fruit/Fruit")
+            component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/fruit/Fruit"),
+            meta:{
+              title: "Home"
+            }
           },
           {
             name: "fruitDetails",
             path: ":fruit",
             component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Details"),
             props: route => ({
-              item: fruit.find(f => f.title === route.params.fruit)
-            })
+              item: fruit.find(f => f.title.toLowerCase() === route.params.fruit.toLowerCase())
+            }),
+            meta:{
+              title: route => ({
+                item: fruit.find(f => f.title.toLowerCase() === route.params.fruit.toLowerCase()).title
+              })
+            }
           }
         ]
       },
@@ -246,7 +270,7 @@ const routes = [
             path: ":vegetable",
             component: () => import(/* webpackChunkName: "multiple-views" */ "@/poc/multiple-router-views/Details"),
             props: route => ({
-              item: vegetables.find(f => f.title === route.params.vegetable)
+              item: vegetables.find(f => f.title.toLowerCase() === route.params.vegetable.toLowerCase())
             })
           }
         ]
@@ -257,6 +281,7 @@ const routes = [
     name: "gdpr",
     path: "/gdpr",
     component: () => import(/* webpackChunkName: "gdpr" */ "@/poc/gdpr/Home"),
+    redirect: { name: "vueCookieLaw" },
     meta: {
       title: "GDPR"
     },
@@ -272,6 +297,14 @@ const routes = [
         component: () => import(/* webpackChunkName: "gdpr" */ "@/poc/gdpr/samples/VueCookieLawSlots")
       }
     ]
+  },
+  {
+    name: "sitemap",
+    path: "/sitemap",
+    component: () => import("@/poc/sitemap/Home"),
+    meta: {
+      title: "Sitemap"
+    }
   },
   {
     name: "privacyNotice",

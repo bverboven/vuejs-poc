@@ -10,8 +10,8 @@
           <p class="text-info">
 <pre>
 props: { 
-  item: result item, 
-  q: search input text 
+  item: Object, <span class="text-success">// result item</span> 
+  q: String, <span class="text-success">// search input text</span>
 }</pre>
           </p>
         </div>

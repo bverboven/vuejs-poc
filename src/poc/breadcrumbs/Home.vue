@@ -34,24 +34,27 @@ export default {
     };
   },
   methods: {
-    async getBreadcrumbTitle(r, currentRoute = this.$route) {
+    async getBreadcrumbTitle(r) {
       if (r.meta && r.meta.title) {
         if (typeof r.meta.title === "function") {
-          return r.meta.title(currentRoute);
+          return r.meta.title(this.$route);
         }
         return r.meta.title;
       }
       return r.name;
     },
+    async mapBreadCrumb(r) {
+      return {
+        name: r.name,
+        title: await this.getBreadcrumbTitle(r),
+        route: { name: r.name, params: this.$route.params },
+        active: r.name === this.$route.name
+      };
+    },
     async setBreadcrumbs(route) {
       // generate breadcrumb items
       const items = await Promise.all(
-        route.matched.map(async r => ({
-          name: r.name,
-          title: await this.getBreadcrumbTitle(r, route),
-          route: { name: r.name, params: route.params },
-          active: r.name === route.name
-        }))
+        route.matched.map(async r => await this.mapBreadCrumb(r))
       );
       // insert home breadcrumb
       if (!items.some(x => x.name === "home")) {

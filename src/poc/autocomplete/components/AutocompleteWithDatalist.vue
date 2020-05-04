@@ -1,6 +1,6 @@
 <template>
   <div
-    class="autocomplete-container"
+    class="input-group autocomplete-container"
     :class="containerClass"
     :style="{ display: inline ? 'inline-block' : 'block' }"
   >
@@ -10,6 +10,7 @@
       v-model="q"
       :id="inputId"
       :list="inputId + '_list'"
+      class="form-control"
       :class="inputClass"
       @input="
         clearSelection();

@@ -1,11 +1,22 @@
 <template>
   <article>
-    <h2>Autocomplete (fruit)</h2>
-    <div class="row">
-      <label for="qFruit" class="col-3">Search</label>
+    <h2>Autocomplete (countries)</h2>
+    <div class="form-row mt-2">
+      <label class="col-3 col-form-label">Maximum results</label>
       <div class="col-9">
+        <select v-model="maxResults" class="form-control">
+          <option :value="3">3 results</option>
+          <option :value="5">5 results</option>
+          <option :value="10">10 results</option>
+          <option :value="20">20 results</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row mt-2">
+      <label for="qCountry" class="col-3">Search</label>
+      <div class="col">
         <Autocomplete
-          input-id="qFruit"
+          input-id="qCountry"
           v-model="selectedCountry"
           :maxResults="maxResults"
           :search="searchCountries"
@@ -14,30 +25,26 @@
           :debounceTime="250"
           ref="countrySelector"
         />
+      </div>
+      <div class="col-auto" v-show="selectedCountry">
         <button
           type="button"
+          class="btn btn-dark"
           @click="$refs.countrySelector.reset()"
-          v-show="selectedCountry"
         >
           Reset
         </button>
       </div>
     </div>
-    <div class="row">
-      <label class="col-3">Maximum results</label>
+    <div class="form-row mt-2">
+      <label class="col-3 col-form-label">Selected: </label>
       <div class="col-9">
-        <select v-model="maxResults">
-          <option :value="3">3 results</option>
-          <option :value="5">5 results</option>
-          <option :value="10">10 results</option>
-          <option :value="20">20 results</option>
-        </select>
-      </div>
-    </div>
-    <div class="row">
-      <label class="col-3">Selected: </label>
-      <div class="col-9">
-        {{ selectedCountryTitle || "nothing yet" }}
+        <input
+          type="text"
+          readonly
+          class="form-control-plaintext"
+          :value="selectedCountryTitle"
+        />
       </div>
     </div>
   </article>
@@ -87,7 +94,6 @@ export default {
     this.getCountries = getCountries;
   },
   async mounted() {
-    console.debug("Created DataList", { cmp: this });
     const country = (await this.getCountries()).find(
       c => this.countryCode && c.code === this.countryCode.toUpperCase()
     );

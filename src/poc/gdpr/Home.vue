@@ -2,7 +2,7 @@
   <section>
     <h2>GDPR</h2>
 
-    <ul class="nav nav-pills">
+    <ul class="nav nav-tabs">
       <li class="nav-item">
         <router-link
           :to="{ name: 'vueCookieLaw' }"
@@ -23,6 +23,8 @@
       </li>
     </ul>
 
-    <router-view></router-view>
+    <div class="p-3">
+      <router-view></router-view>
+    </div>
   </section>
 </template>

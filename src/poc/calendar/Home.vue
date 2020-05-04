@@ -1,18 +1,20 @@
 <template>
   <section>
     <h2>Calendar</h2>
-    <ul class="nav nav-pills mb-3">
+    <ul class="nav nav-tabs">
       <li class="nav-item">
-        <router-link :to="{ name: 'nathanReyesCalendar' }" class="nav-link">Nathan Reyes</router-link>
+        <router-link :to="{ name: 'nathanReyesCalendar' }" class="nav-link" active-class="active">Nathan Reyes</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{ name: 'manukMinasyanCalendar' }" class="nav-link">Manuk Minasyan</router-link>
+        <router-link :to="{ name: 'manukMinasyanCalendar' }" class="nav-link" active-class="active">Manuk Minasyan</router-link>
       </li>
       <li class="nav-item">
-        <router-link :to="{ name: 'richardTallentCalendar' }" class="nav-link">Richard Tallent</router-link>
+        <router-link :to="{ name: 'richardTallentCalendar' }" class="nav-link" active-class="active">Richard Tallent</router-link>
       </li>
     </ul>
 
-    <router-view></router-view>
+    <div class="p-3">
+      <router-view></router-view>
+    </div>
   </section>
 </template>

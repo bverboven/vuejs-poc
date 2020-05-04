@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ul class="nav nav-pills mb-3">
+    <ul class="nav nav-tabs">
       <li class="nav-item">
         <router-link
           :to="{ name: 'basicDraggable' }"
@@ -51,7 +51,9 @@
         </router-link>
       </li>
     </ul>
-
-    <router-view></router-view>
+    
+    <div class="p-3">
+      <router-view></router-view>
+    </div>
   </section>
 </template>

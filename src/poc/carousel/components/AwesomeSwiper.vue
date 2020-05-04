@@ -1,56 +1,48 @@
 <template>
-  <article>
-    <h2>Carousel (Awesome swiper)</h2>
-    <p class="text-info">
-      link:
-      <a
-        href="https://github.com/surmon-china/vue-awesome-swiper"
-       
-      >
-        https://github.com/surmon-china/vue-awesome-swiper
-      </a>
-    </p>
-    <div class="carousel-container">
-      <div class="row">
-        <div class="col">
-          <swiper
-            :options="swiperOption"
-            ref="mySwiper"
-            @change-slide="changeSlide"
+  <div class="carousel-container">
+    <div class="row">
+      <div class="col">
+        <swiper
+          :options="swiperOption"
+          ref="mySwiper"
+          @change-slide="changeSlide"
+        >
+          <swiperSlide
+            v-for="(slide, index) in slides"
+            :key="slide.id || index"
           >
-            <swiperSlide
-              v-for="(slide, index) in slides"
-              :key="slide.id || index"
-            >
-              <div class="img-wrapper">
-                <img
-                  class="d-block img-fluid carousel-img align-middle"
-                  :src="slide.imgUrl"
-                  :alt="slide.title"
-                  :class="{ active: index == currentSlide }"
-                />
-                <span class="slide-title">{{ slide.title }}</span>
-              </div>
-            </swiperSlide>
-          </swiper>
-        </div>
-      </div>
-      <div class="paging row">
-        <div class="col">
-          <ul class="float-right mt-2">
-            <li v-for="(dummy, index) in slides" :key="index">
-              <span
-                class="pagination-bullet"
-                :class="{ active: index == centerSlide }"
-                @click="setSlide(index + slideCorrection)"
-                v-if="index < slides.length"
-              ></span>
-            </li>
-          </ul>
-        </div>
+            <div class="img-wrapper">
+              <img
+                class="d-block img-fluid carousel-img align-middle"
+                :src="slide.imgUrl"
+                :alt="slide.title"
+                :class="{ active: index == currentSlide }"
+              />
+              <span class="slide-title">{{ slide.title }}</span>
+            </div>
+          </swiperSlide>
+        </swiper>
       </div>
     </div>
-  </article>
+    <div class="paging row">
+      <div class="col">
+        <ul class="list-inline float-right mt-2">
+          <li
+            v-for="(dummy, index) in slides"
+            :key="index"
+            class="list-inline-item"
+          >
+            <span
+              class="pagination-bullet"
+              :class="{ active: index == centerSlide }"
+              @click="setSlide(index + slideCorrection)"
+              v-if="index < slides.length"
+            ></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -114,9 +106,6 @@ export default {
     }
   },
   watch: {
-    slide(newVal) {
-      this.setSlide(newVal);
-    },
     interval(newVal) {
       this.setInterval(newVal);
     }

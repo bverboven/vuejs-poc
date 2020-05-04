@@ -1,16 +1,6 @@
 <template>
   <section>
-    <ul class="nav nav-pills mb-3">
-      <li class="nav-item">
-        <router-link
-          :to="{ name: 'autocomplete' }"
-          class="nav-link"
-          active-class="active"
-          exact
-        >
-          Home
-        </router-link>
-      </li>
+    <ul class="nav nav-tabs">
       <li class="nav-item">
         <router-link
           :to="{ name: 'trevoreyreAutocomplete' }"
@@ -95,8 +85,8 @@
       </router-link>
     </div>
 
-    <article>
+    <div class="p-3">
       <router-view></router-view>
-    </article>
+    </div>
   </section>
 </template>

@@ -1,6 +1,7 @@
 <template>
   <div
     class="autocomplete-container"
+    :class="containerClass"
     :style="{ display: inline ? 'inline-block' : 'block' }"
   >
     <input
