@@ -21,6 +21,7 @@ export default [
         name: "home",
         component: Home
     },
+    // autocomplete
     {
         name: "autocomplete",
         path: "/autocomplete",
@@ -54,6 +55,7 @@ export default [
             }
         ]
     },
+    // breadcrumbs
     {
         name: "breadcrumbs",
         path: "/breadcrumbs",
@@ -100,6 +102,7 @@ export default [
             }
         ]
     },
+    // document title
     {
         name: "documentTitle",
         path: "/document-title",
@@ -108,6 +111,7 @@ export default [
             title: "Document title"
         }
     },
+    // draggable/sortable
     {
         name: "draggable",
         path: "/draggable",
@@ -144,6 +148,7 @@ export default [
             }
         ]
     },
+    // calendar
     {
         name: "calendar",
         path: "/calendar",
@@ -170,6 +175,7 @@ export default [
             }
         ]
     },
+    // carousel
     {
         name: "carousel",
         path: "/carousel",
@@ -191,6 +197,7 @@ export default [
             }
         ]
     },
+    // WYSIWYG
     {
         name: "wysiwyg",
         path: "/wysiwyg",
@@ -226,6 +233,7 @@ export default [
             },
         ]
     },
+    // multiple views
     {
         name: "multipleViews",
         path: "/multiple-views",
@@ -307,6 +315,16 @@ export default [
             }
         ]
     },
+    // context-menu
+    {
+        name: "contextMenu",
+        path: "/context-menu",
+        component: () => import("@/poc/context-menu/Home"),
+        meta: {
+            title: "Context menu"
+        },
+    },
+    // gdpr
     {
         name: "gdpr",
         path: "/gdpr",
@@ -328,6 +346,7 @@ export default [
             }
         ]
     },
+    // sitemap
     {
         name: "sitemap",
         path: "/sitemap",
@@ -336,6 +355,7 @@ export default [
             title: "Sitemap"
         }
     },
+    // privacy note
     {
         name: "privacyNotice",
         path: "/privacy",
